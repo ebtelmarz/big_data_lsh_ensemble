@@ -4,6 +4,9 @@ pip3 install -r requirements.txt
 python3 prepare_dataset/dataset_provision.py
 python3 prepare_dataset/create_random_query.py
 
+hdfs dfs -rm -r /input
+hdfs dfs -rm -r /output
+
 hdfs dfs -mkdir /input
 hdfs dfs -mkdir /output
 

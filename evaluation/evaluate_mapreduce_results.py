@@ -1,10 +1,9 @@
+import findspark
+findspark.init()
 from datetime import datetime
 from pyspark.sql import SparkSession
-import findspark
 import config
-import os
 from datasketch import MinHash
-from pathlib import Path
 
 
 def compute_actual_inclusion_coeff(coppia):
@@ -101,7 +100,6 @@ def generate_dataframes(spark):
 def main():
     print('\nLSH Ensemble results were saved to \'' + config.HADOOP_OUTPUT_DIR + '\'\n')
     # start = datetime.now()
-    findspark.init()
     spark = SparkSession.builder.appName("LSH_Ensemble").getOrCreate()
 
     df_precision, df_recall, lsh_result_cardinality = generate_dataframes(spark)
