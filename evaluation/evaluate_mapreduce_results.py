@@ -56,7 +56,10 @@ def evaluate_precision(df):
 
 
 def get_recall(cardinality, positives):
-    recall = cardinality / positives
+    try:
+        recall = cardinality / positives
+    except ZeroDivisionError:
+        recall = 0.0
 
     if recall > 1.0:
         recall = cardinality - positives
