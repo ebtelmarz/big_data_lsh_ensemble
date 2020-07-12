@@ -1,9 +1,10 @@
 import findspark
 findspark.init()
-from datetime import datetime
+
 from pyspark.sql import SparkSession
 import config
 from datasketch import MinHash
+from prepare_dataset import set_threshold
 
 
 def compute_actual_inclusion_coeff(coppia):
@@ -48,7 +49,7 @@ def evaluate_precision(df):
         jaccard_union_col1 = minhash_union.jaccard(minhash_col1)
 
         estimated_inclusion = jaccard_col1_col2 / jaccard_union_col1
-        # print(jaccard_col1_col2, jaccard_union_col1, estimated_inclusion, actual_coeff)
+
         if round(actual_coeff, 1) == round(estimated_inclusion, 1):
             positives += 1
 
@@ -62,8 +63,9 @@ def get_recall(cardinality, positives):
         recall = 0.0
 
     if recall > 1.0:
-        recall = cardinality - positives
-        print('LSH Ensemble found ' + str(recall) + ' values more than expected')
+        recall = 1.0
+        #recall = cardinality - positives
+        #print('LSH Ensemble found ' + str(recall) + ' values more than expected')
     else:
         print('Recall: ' + str(recall))
 
@@ -73,7 +75,7 @@ def evaluate_recall(dataframe, cardinality):
     for coppia in dataframe.take(dataframe.count()):
         actual_coeff = compute_actual_inclusion_coeff(coppia)
 
-        if round(actual_coeff, 1) >= config.LSH_PARAMS['threshold']:           # > or >= ??
+        if round(actual_coeff, 1) >= set_threshold.get_threshold()['threshold']:           # > or >= ??
             positives += 1
 
     get_recall(cardinality, positives)
@@ -101,8 +103,6 @@ def generate_dataframes(spark):
 
 
 def main():
-    print('\nLSH Ensemble results were saved to \'' + config.HADOOP_OUTPUT_DIR + '\'\n')
-    # start = datetime.now()
     spark = SparkSession.builder.appName("LSH_Ensemble").getOrCreate()
 
     df_precision, df_recall, lsh_result_cardinality = generate_dataframes(spark)
@@ -112,8 +112,6 @@ def main():
 
     print('\nEvaluating recall of LSH Ensemble...')
     evaluate_recall(df_recall, lsh_result_cardinality)
-
-    # print('Total time of evaluation: ' + str(datetime.now() - start))
 
 
 if __name__ == '__main__':

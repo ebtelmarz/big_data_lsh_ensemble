@@ -4,12 +4,13 @@ import sys
 import config
 from datasketch.minhash import MinHash
 from datasketch.lshensemble import MinHashLSHEnsemble
+from prepare_dataset import set_threshold
 
 
 def sim_search(query_set, to_pass, glob):
-    thresh = config.LSH_PARAMS['threshold']
-    permutations = config.LSH_PARAMS['num_permutations']
-    partitions = config.LSH_PARAMS['num_partitions']
+    thresh = set_threshold.get_threshold()['threshold']
+    permutations = set_threshold.get_threshold()['num_permutations']
+    partitions = set_threshold.get_threshold()['num_partitions']
     lshensemble = MinHashLSHEnsemble(threshold=thresh, num_perm=permutations, num_part=partitions)
     lshensemble.index(to_pass)
 

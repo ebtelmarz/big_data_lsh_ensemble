@@ -1,4 +1,4 @@
-import os.path
+import os
 import platform
 import config
 
@@ -75,7 +75,7 @@ def choose_dataset(dataset, key):
         choices.update({str(i): line})
         i += 1
     print('\n')
-    os.system('./choose_dataset.sh > tmp.txt')
+    os.system('./prepare_dataset/bash_scripts/choose_dataset.sh > tmp.txt')
     print('\n')
     res1 = open('tmp.txt').readlines()[0].replace('\n', '')
     dataset_filename = choices[res1]
@@ -91,7 +91,7 @@ def clean_data_dir():
 
 def main():
     clean_data_dir()
-    os.system('./choose_environment.sh > tmp.txt')
+    os.system('./prepare_dataset/bash_scripts/choose_environment.sh > tmp.txt')
     try:
         res = open('tmp.txt').readlines()[0].replace('\n', '')
     except IndexError:
