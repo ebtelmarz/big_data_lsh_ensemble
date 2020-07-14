@@ -1,6 +1,6 @@
 import os
 import platform
-import config
+from config import config
 
 
 def check_if_dataset_exists(dataset_filename):

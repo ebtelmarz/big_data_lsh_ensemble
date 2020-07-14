@@ -1,5 +1,5 @@
 import os
-import config
+from config import config
 import random
 
 
