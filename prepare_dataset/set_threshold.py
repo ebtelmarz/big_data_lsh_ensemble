@@ -7,8 +7,6 @@ def get_threshold():
     except IndexError:
         threshold = open('prepare_dataset/tmp.txt').readlines()
 
-    #os.remove('prepare_dataset/tmp.txt')
-
     return {
         'threshold': float(threshold),
         'num_permutations': 128,

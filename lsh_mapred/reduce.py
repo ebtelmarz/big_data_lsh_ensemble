@@ -52,35 +52,35 @@ def prepare_domain(vals):
     return m_set
 
 
-def get_values(valori):
-    vals = []
+def get_values(values):
+    result_values = []
 
-    for elem in valori:
+    for elem in values:
         elemento = elem[2:-1]
         elemento_c = elemento[:-1] if elemento[-1] == '\'' else elemento
-        vals.append(elemento_c)
-    return vals
+        result_values.append(elemento_c)
+    return result_values
 
 
 def main():
     query_file = config.QUERY_FILE
     to_pass = []
-    glob = {}
+    global_map = {}
 
     query_set = prepare_query(query_file)
 
     for line in sys.stdin:
         key, values = line.split('\t')
-        valori = values.split(',')
-        valori[-1] = valori[-1].replace(']', '')
+        fields = values.split(',')
+        fields[-1] = fields[-1].replace(']', '')
 
-        vals = get_values(valori)
-        minhash = prepare_domain(vals)
-        length = len(vals)
+        records = get_values(fields)
+        minhash = prepare_domain(records)
+        length = len(records)
         to_pass.append((key, minhash, length))
-        glob.update({key: vals})
+        global_map.update({key: records})
 
-    sim_search(query_set, to_pass, glob)
+    sim_search(query_set, to_pass, global_map)
 
 
 if __name__ == '__main__':

@@ -67,13 +67,13 @@ def download_dataset_if_needed(dataset_filename):
 
 
 def choose_dataset(dataset, key):
-    i = 0
+    index = 0
     choices = {}
     print('\nAVAILABLE DATASETS FOR ' + key + ' EXECUTION: \n')
     for line in dataset.keys():
-        print('[' + str(i) + '] ' + line[:len(line) - 7])
-        choices.update({str(i): line})
-        i += 1
+        print('[' + str(index) + '] ' + line[:len(line) - 7])
+        choices.update({str(index): line})
+        index += 1
     print('\n')
     os.system('./prepare_dataset/bash_scripts/choose_dataset.sh > tmp.txt')
     print('\n')
@@ -93,18 +93,18 @@ def main():
     clean_data_dir()
     os.system('./prepare_dataset/bash_scripts/choose_environment.sh > tmp.txt')
     try:
-        res = open('tmp.txt').readlines()[0].replace('\n', '')
+        input_value = open('tmp.txt').readlines()[0].replace('\n', '')
     except IndexError:
-        res = open('tmp.txt').readlines()
+        input_value = open('tmp.txt').readlines()
     os.remove('tmp.txt')
 
-    if not (res == 'l' or res == 'L' or res == 'C' or res == 'c'):
+    if not (input_value == 'l' or input_value == 'L' or input_value == 'C' or input_value == 'c'):
         print("Program exited with error code, please choose a valid execution environment: 'C' or 'L'")
-    elif res == 'l' or res == 'l':
+    elif input_value == 'L' or input_value == 'l':
         key = 'LOCAL'
         dataset_filename = choose_dataset(config.DATASETS_REFERENCES_LOCAL, key)
         download_dataset_if_needed(dataset_filename)
-    elif res == 'C' or res == 'c':
+    elif input_value == 'C' or input_value == 'c':
         key = 'CLUSTER'
         dataset_filename = choose_dataset(config.DATASETS_REFERENCES_CLUSTER, key)
         download_dataset_if_needed(dataset_filename)

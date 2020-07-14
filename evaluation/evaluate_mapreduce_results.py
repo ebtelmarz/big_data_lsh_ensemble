@@ -27,7 +27,14 @@ def compute_minhash(column):
 
 
 def get_precision(pos, length):
-    precision = pos / length
+    if pos == length:
+        precision = 1.0
+    else:
+        try:
+            precision = pos / length
+        except ZeroDivisionError:
+            precision = 0.0
+
     print('Precision: ' + str(precision))
     return precision
 
@@ -37,20 +44,20 @@ def evaluate_precision(df):
     for coppia in df.take(df.count()):
         actual_coeff = compute_actual_inclusion_coeff(coppia)
 
-        col1 = coppia['col1'].split(',')
-        col2 = coppia['col2'].split(',')
-        union = set(col1).union(set(col2))
+        # col1 = coppia['col1'].split(',')
+        # col2 = coppia['col2'].split(',')
+        # union = set(col1).union(set(col2))
 
-        minhash_col1 = compute_minhash(col1)
-        minhash_col2 = compute_minhash(col2)
-        minhash_union = compute_minhash(union)
+        # minhash_col1 = compute_minhash(col1)
+        # minhash_col2 = compute_minhash(col2)
+        # minhash_union = compute_minhash(union)
 
-        jaccard_col1_col2 = minhash_col1.jaccard(minhash_col2)
-        jaccard_union_col1 = minhash_union.jaccard(minhash_col1)
+        # jaccard_col1_col2 = minhash_col1.jaccard(minhash_col2)
+        # jaccard_union_col1 = minhash_union.jaccard(minhash_col1)
 
-        estimated_inclusion = jaccard_col1_col2 / jaccard_union_col1
+        # estimated_inclusion = jaccard_col1_col2 / jaccard_union_col1
 
-        if round(actual_coeff, 1) == round(estimated_inclusion, 1):
+        if round(actual_coeff, 1) >= set_threshold.get_threshold()['threshold']:
             positives += 1
 
     get_precision(positives, df.count())
@@ -64,10 +71,8 @@ def get_recall(cardinality, positives):
 
     if recall > 1.0:
         recall = 1.0
-        #recall = cardinality - positives
-        #print('LSH Ensemble found ' + str(recall) + ' values more than expected')
-    else:
-        print('Recall: ' + str(recall))
+
+    print('Recall: ' + str(recall))
 
 
 def evaluate_recall(dataframe, cardinality):

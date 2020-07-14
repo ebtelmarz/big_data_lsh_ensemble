@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+rm data/query.txt
 pip3 install -r requirements.txt
 python3 prepare_dataset/dataset_provision.py
 python3 prepare_dataset/create_random_query.py
