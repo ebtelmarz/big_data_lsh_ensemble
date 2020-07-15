@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir data
 rm data/query.txt
 
 pip3 install -r requirements.txt

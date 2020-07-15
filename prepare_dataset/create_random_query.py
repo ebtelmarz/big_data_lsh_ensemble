@@ -1,6 +1,9 @@
 import os
-import config
+import sys
 import random
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import config
 
 
 def generate_query_file(query_file):

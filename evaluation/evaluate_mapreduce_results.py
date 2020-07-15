@@ -1,10 +1,14 @@
 import findspark
 findspark.init()
 
+import os
+import sys
 from pyspark.sql import SparkSession
-import config
 from datasketch import MinHash
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import prepare_dataset.set_threshold as set_threshold
+import config
 
 
 def clean_columns(coppia):
