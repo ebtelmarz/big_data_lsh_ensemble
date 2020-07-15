@@ -2,7 +2,7 @@ import findspark
 findspark.init()
 
 from pyspark.sql import SparkSession
-from config import config
+import config
 from datasketch import MinHash
 from prepare_dataset import set_threshold
 

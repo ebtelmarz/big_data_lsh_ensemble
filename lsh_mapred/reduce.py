@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from config import config
+import config
 from datasketch.minhash import MinHash
 from datasketch.lshensemble import MinHashLSHEnsemble
 from prepare_dataset import set_threshold
