@@ -4,7 +4,7 @@ import sys
 import config
 from datasketch.minhash import MinHash
 from datasketch.lshensemble import MinHashLSHEnsemble
-from prepare_dataset import set_threshold
+import prepare_dataset.set_threshold as set_threshold
 
 
 def sim_search(query_set, to_pass, glob):

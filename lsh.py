@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import os
-from config import config
 """
 df = pd.DataFrame(np.random.randn(50, 4), columns=list('ABCD'))
 

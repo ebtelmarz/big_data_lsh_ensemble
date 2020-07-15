@@ -4,7 +4,7 @@ findspark.init()
 from pyspark.sql import SparkSession
 import config
 from datasketch import MinHash
-from prepare_dataset import set_threshold
+import prepare_dataset.set_threshold as set_threshold
 
 
 def clean_columns(coppia):

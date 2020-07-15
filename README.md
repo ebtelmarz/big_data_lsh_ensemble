@@ -9,6 +9,11 @@ To run this project you need:
 - [Python](https://www.python.org/downloads/release/python-369/) 3.6.9
 - [Hadoop](https://hadoop.apache.org/releases.html) 3.2.1
 - [Spark](https://spark.apache.org/downloads.html) 3.0.0
+- pip3 intstalled in your machine. To install pip3 run the following commands in a shell
+```bash
+sudo apt update
+sudo apt install python3-pip
+```
 
 ## Usage
 Start Hadoop, open a shell and run
