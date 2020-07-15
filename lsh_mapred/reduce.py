@@ -66,6 +66,7 @@ def main():
     query_file = config.QUERY_FILE
     to_pass = []
     global_map = {}
+    keys = []
 
     query_set = prepare_query(query_file)
 
@@ -77,8 +78,10 @@ def main():
         records = get_values(fields)
         minhash = prepare_domain(records)
         length = len(records)
-        to_pass.append((key, minhash, length))
+        if key not in keys:
+            to_pass.append((key, minhash, length))
         global_map.update({key: records})
+        keys.append(key)
 
     sim_search(query_set, to_pass, global_map)
 

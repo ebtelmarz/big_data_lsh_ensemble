@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 def get_threshold():
@@ -23,7 +24,7 @@ def main():
         res = open('prepare_dataset/tmp.txt').readlines()
 
     if res == 'no':
-        print('Program exited with error code, please choose a valid threshold value in range [0,1]')
+        sys.exit('Program exited with error code, please choose a valid threshold value in range [0,1]')
 
 
 if __name__ == '__main__':

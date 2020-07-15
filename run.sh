@@ -6,6 +6,13 @@ python3 prepare_dataset/dataset_provision.py
 python3 prepare_dataset/create_random_query.py
 python3 prepare_dataset/set_threshold.py
 
+#value=$(cat prepare_dataset/tmp.txt)
+#echo $value
+#if [[ $value == no ]]; then
+#    echo 'si'
+#    exit 1
+#fi
+
 hdfs dfs -rm -r /input
 hdfs dfs -rm -r /output
 

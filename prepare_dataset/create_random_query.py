@@ -8,36 +8,44 @@ def generate_query_file(query_file):
     os.system('chmod 777 ' + query_file)
 
 
-def get_random_query_index(filename):
+def get_random_query_line(filename):
     os.system('wc -l ' + os.path.join(config.DATA_DIR, filename) + ' > tmp.txt')
 
     opened = open('tmp.txt').readlines()
+    file = open(os.path.join(config.DATA_DIR, filename)).readlines()
     first_line = opened[0].replace('\n', '')
     lines = first_line.split()[0]
     range = int(lines)
 
     query_index = random.randrange(range + 1)
+    """
+    line_values = file[query_index].split()[1]
+    
+    values = line_values.split(',')
+    values_string = '\'' + str(values[0]) + '\''
+
+    for element in values:
+        values_string += ', \'' + str(element) + '\''
+
+    line = str(0) + '\t' + '[' + values_string + ']'
+    """
+
+    line = file[query_index]
     os.remove('tmp.txt')
 
-    return query_index
+    return line
 
 
 def main():
     print('\nSelecting random query from dataset...')
 
-    i = 0
     filename = os.listdir(config.DATA_DIR)[0]
-    file = open(os.path.join(config.DATA_DIR, filename))
     query_file = config.QUERY_FILE
 
     generate_query_file(query_file)
-    query_index = get_random_query_index(filename)
+    line = get_random_query_line(filename)
 
-    for line in file:
-        i += 1
-        if i == query_index:
-            os.system('echo \'' + line + '\' > ' + query_file)
-            break
+    open('data/query.txt', 'w').write(line)
 
     print('Query selected and written to file \'' + query_file + '\'')
 
