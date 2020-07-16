@@ -42,7 +42,7 @@ def get_random_query_line(filename):
 def main():
     print('\nSelecting random query from dataset...')
 
-    filename = os.listdir(config.DATA_DIR)[0]
+    filename = os.listdir(config.DATA_DIR)[1]
     query_file = config.QUERY_FILE
 
     generate_query_file(query_file)

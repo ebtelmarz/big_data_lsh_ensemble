@@ -89,7 +89,8 @@ def choose_dataset(dataset, key):
 def clean_data_dir():
     files = os.listdir(config.DATA_DIR)
     for file in files:
-        os.system('rm ' + os.path.join(config.DATA_DIR, file))
+        if not file == '.gitkeep':
+            os.system('rm ' + os.path.join(config.DATA_DIR, file))
 
 
 def main():
