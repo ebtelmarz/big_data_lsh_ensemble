@@ -52,6 +52,7 @@ def get_precision(pos, length):
             precision = 0.0
 
     print('Precision: ' + str(precision))
+    return precision
 
 
 def evaluate_precision(df):
@@ -73,7 +74,7 @@ def evaluate_precision(df):
         if round(actual_coeff, 1) >= set_threshold.get_threshold()['threshold']:
             positives += 1
 
-    get_precision(positives, df.count())
+    return get_precision(positives, df.count())
 
 
 def get_recall(cardinality, positives):
@@ -91,15 +92,18 @@ def get_recall(cardinality, positives):
     print('Recall: ' + str(recall))
 
 
-def evaluate_recall(dataframe, cardinality):
-    positives = 0
-    for coppia in dataframe.take(dataframe.count()):
-        actual_coeff = compute_actual_inclusion_coeff(coppia)
+def evaluate_recall(dataframe, cardinality, precision):
+    if precision == 0.0:
+        print('Recall: 0.0')
+    else:
+        positives = 0
+        for coppia in dataframe.take(dataframe.count()):
+            actual_coeff = compute_actual_inclusion_coeff(coppia)
 
-        if round(actual_coeff, 1) >= set_threshold.get_threshold()['threshold']:           # > or >= ??
-            positives += 1
+            if round(actual_coeff, 1) >= set_threshold.get_threshold()['threshold']:           # > or >= ??
+                positives += 1
 
-    get_recall(cardinality, positives)
+        get_recall(cardinality, positives)
 
 
 def generate_dataframes(spark):
@@ -135,10 +139,10 @@ def main():
     df_precision, df_recall, lsh_result_cardinality = generate_dataframes(spark)
 
     print('\nEvaluating precision of LSH Ensemble...')
-    evaluate_precision(df_precision)
+    precision = evaluate_precision(df_precision)
 
     print('\nEvaluating recall of LSH Ensemble...')
-    evaluate_recall(df_recall, lsh_result_cardinality)
+    evaluate_recall(df_recall, lsh_result_cardinality, precision)
 
 
 if __name__ == '__main__':
