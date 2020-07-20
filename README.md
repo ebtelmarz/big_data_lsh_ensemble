@@ -16,7 +16,7 @@ sudo apt install python3-pip
 ```
 
 ## Usage
-###To run the project locally
+#### To run the project locally
 
 Start Hadoop, open a shell and run
 ```bash
@@ -39,7 +39,7 @@ sh run.sh
 ```
 &nbsp;
 
-###To run the project on cluster
+#### To run the project on cluster
 Create a virtual environment 
  ```bash
 python3 -m venv my_env
