@@ -16,7 +16,7 @@ hdfs dfs -mkdir /output
 cd data
 for entry in *
     do
-        hdfs dfs -put "$entry" /input
+      	hdfs dfs -put "$entry" /input
         if [[ $entry != "query.txt" ]];
         then
             dataset=$entry
@@ -24,9 +24,9 @@ for entry in *
     done
 
 cd ..
-hadoop jar jars/hadoop-streaming-3.2.1.jar -D mapreduce.job.reduces=0 -mapper lsh_mapred/map.py -input /input/"$dataset" -output /output/out_dataset
-hadoop jar jars/hadoop-streaming-3.2.1.jar -D mapreduce.job.reduces=0 -mapper lsh_mapred/map.py -input /input/query.txt -output /output/out_query
-hadoop jar jars/hadoop-streaming-3.2.1.jar -mapper lsh_mapred/map.py -reducer lsh_mapred/reduce.py -input /input/"$dataset" -output /output/out_lsh
+hadoop jar jars/hadoop-streaming-3.2.1.jar -D mapreduce.job.reduces=0 -files lsh_mapred/map.py -input /input/"$dataset" -output /output/out_dataset
+hadoop jar jars/hadoop-streaming-3.2.1.jar -D mapreduce.job.reduces=0 -files lsh_mapred/map.py -input /input/query.txt -output /output/out_query
+hadoop jar jars/hadoop-streaming-3.2.1.jar -files lsh_mapred/map.py lsh_mapred/reduce.py -input /input/"$dataset" -output /output/out_lsh
 echo ''
 echo "LSH Ensemble results were saved to 'hdfs://localhost:9000/output/out_lsh'"
 echo ''

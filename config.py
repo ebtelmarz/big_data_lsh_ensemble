@@ -29,10 +29,10 @@ DATASETS_REFERENCES = {
     'wdc_webtables_2015_english_relational_queries_10k.inp.gz': 'https://storage.googleapis.com/set-similarity-search/wdc_webtables_2015_english_relational_queries_10k.inp.gz',
 }
 
-
 DATASETS_REFERENCES_LOCAL = {
     'canada_us_uk_opendata_queries_1k.inp.gz': 'https://storage.googleapis.com/set-similarity-search/canada_us_uk_opendata_queries_1k.inp.gz',
     'canada_us_uk_opendata_queries_10k.inp.gz': 'https://storage.googleapis.com/set-similarity-search/canada_us_uk_opendata_queries_10k.inp.gz',
+    'wdc_webtables_2015_english_relational_queries_100.inp.gz': 'https://storage.googleapis.com/set-similarity-search/wdc_webtables_2015_english_relational_queries_100.inp.gz',
     'wdc_webtables_2015_english_relational_queries_1k.inp.gz': 'https://storage.googleapis.com/set-similarity-search/wdc_webtables_2015_english_relational_queries_1k.inp.gz',
     'wdc_webtables_2015_english_relational_queries_10k.inp.gz': 'https://storage.googleapis.com/set-similarity-search/wdc_webtables_2015_english_relational_queries_10k.inp.gz',
 }
