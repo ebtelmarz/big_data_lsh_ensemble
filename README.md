@@ -45,7 +45,7 @@ Create a virtual environment
 python3 -m venv my_env
 source .my_env/bin/activate 
 ``` 
-Execute the run_cluster.sh script by running
+Execute the run.sh script by running
  ```bash
-sh run_cluster.sh
+sh run.sh
 ``` 
